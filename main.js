@@ -18,14 +18,26 @@ for (let beat in beats) {
     "<div class='beat-small-box' id='beat-" + beat + "'>" + beat + "</div>";
 }
 
+let clicking = document.getElementsByClassName("beat-small-box");
+for (let i = 0; i < Object.keys(beats).length; i++) {
+  console.log(i);
+  clicking[i].addEventListener("click", (event) => {
+    console.log(event.target.innerHTML);
+    call_functions(event.target.innerHTML);
+  });
+}
 window.addEventListener("keydown", (event) => {
   let key = event.key;
+  call_functions(key);
+});
+
+call_functions = (key) => {
   play_audio(key);
   style_button(key);
   setTimeout(() => {
     unstyle_button(key);
   }, 1000);
-});
+};
 
 play_audio = (keyPressed) => {
   if (keyPressed in beats) {
